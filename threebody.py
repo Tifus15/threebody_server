@@ -219,7 +219,29 @@ class threebody:
         else:
             print("TEST_PASSED {}/{}".format(valid,N*TRIES))
         
-
+    def dtTEST(self,dt):
+        print("SAMPLES_TEST\n")
+        samples_list = list(self.data.keys())
+    
+        N = len(samples_list)
+        TRIES = 25
+        valid = 0
+        for i in range(N):
+            print(self.data[samples_list[i]]["name"])
+            T = self.data[samples_list[i]]["T"]
+            points = int(T/dt)-1
+            for j in tqdm(range(TRIES)):
+                t,x,dx,H = self.make_sample(samples_list[i],points,torch.rand(1,)*2*torch.pi)
+                print(t[1]-t[0])
+                flag = self.hamiltonian_check(x,H)
+                if flag:
+                    valid+=1
+                    print("passed")
+    
+        if valid/(N*TRIES)<0.9:
+            print("TEST_FAILED {}/{}".format(valid,N*TRIES))
+        else:
+            print("TEST_PASSED {}/{}".format(valid,N*TRIES))
 
 if __name__ == "__main__":
     #creator = threebody(SAMPLES)
@@ -230,7 +252,7 @@ if __name__ == "__main__":
     #dataset2 = creator.dataset_mixed(512,keys,8)
     #creator.TEST(256)
     creator = threebody(FIGSAMPLES)
-    creator.TEST(256)
+    creator.dtTEST(0.1)
             
             
             

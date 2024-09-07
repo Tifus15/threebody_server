@@ -4,7 +4,7 @@ samples: 30
 alpha : 0.785 # pi/4
 cuda: True # server False
 
-monitoring: True
+monitoring: False
 
 sbatch: 32
 tbatch: 32

@@ -1,14 +1,13 @@
 save : False
-dt: 0.01
-samples: 5
-alpha : 0.785 # pi/4
-cuda: True # server False
+dt: 0.1
+samples: 10
+alpha : 0.261799 # 15 deg
+cuda: False # server False
 
-monitoring: True
-
-sbatch: 32
-tbatch: 32
-lr: 0.0001
+monitoring: False
+sbatch: 8
+tbatch: 64
+lr: 0.001
 bias: False
 nodes: 3
 no_loops: True
@@ -21,12 +20,12 @@ layer: GAT
 size: 128
 e_size: 16
 
-train_break: 50
-test_break: 5
+train_break: -1
+test_break: -1
 
-epochs: 5
+epochs: 300
 sim_type: dat_div
 
-max_sim_time: 259200 # days
+max_sim_time: 10000 # days
 wandb: False
 

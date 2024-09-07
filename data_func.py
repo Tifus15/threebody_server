@@ -150,6 +150,7 @@ def make_snapshots(data,H,timesize,stride=1):
     for i in range(N):
         for j in range(T-timesize-1):
             if j % int(timesize/stride) !=0:
+                print("STRIDE")
                 continue
             temp = data[j:timesize+j,i,:,:]
            #print("temp {}".format(temp.shape))

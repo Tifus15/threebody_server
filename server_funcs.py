@@ -74,7 +74,7 @@ def dataset_train(config):
 ## DEFINE LOSS and OPTISdict={}
     if CUDA:
         g = g.to('cuda:0')
-        GHNN = GNN_maker_HNN(g,4,LAYER_SIZE,E_SIZE,["softplus",""],type=LAYER,bias=BIAS,dropout = 0.3).to(torch.device("cuda:0"))
+        GHNN = GNN_maker_HNN(g,4,LAYER_SIZE,E_SIZE,["softplus",""],type=LAYER,bias=BIAS,dropout = 0.85).to(torch.device("cuda:0"))
         print(GHNN)
         ## DEFINE BASELINE
         HNN_model = HNN(12,LAYER_SIZE,["softplus"," "],bias =BIAS).to(torch.device("cuda:0"))
@@ -83,13 +83,13 @@ def dataset_train(config):
         loss_container=torch.zeros(EPOCHS,24).to(torch.device("cuda:0"))
 
     else:
-        GHNN = GNN_maker_HNN(g,4,LAYER_SIZE,E_SIZE,["softplus",""],type=LAYER,bias=BIAS,dropout = 0.3)
+        GHNN = GNN_maker_HNN(g,4,LAYER_SIZE,E_SIZE,["softplus",""],type=LAYER,bias=BIAS,dropout = 0.85)
         print(GHNN)
         ## DEFINE BASELINE
         HNN_model = HNN(12,LAYER_SIZE,["softplus"," "],bias =BIAS)
         print(HNN_model)
         loss_container=torch.zeros(EPOCHS,24)
-    GRUHNN = rollout_GNN_GRU(g,4,LAYER_SIZE,E_SIZE,["softplus"],bias=BIAS,type=LAYER,dropout = 0.3)
+    GRUHNN = rollout_GNN_GRU(g,4,LAYER_SIZE,E_SIZE,["softplus"],bias=BIAS,type=LAYER,dropout = 0.85)
     print(GRUHNN)
     opti_hnn = torch.optim.AdamW(HNN_model.parameters(),lr=LR)
     opti_ghnn = torch.optim.AdamW(GHNN.parameters(),lr=LR)
